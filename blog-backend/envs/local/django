@@ -1,0 +1,6 @@
+# General
+# ------------------------------------------------------------------------------
+SECRET_KEY=django-insecure-j5^gh35^o0(a@18%l1)9+_zze(@_o2g%s+ye1&hy6v8a^d69s!
+DEBUG=True
+
+
