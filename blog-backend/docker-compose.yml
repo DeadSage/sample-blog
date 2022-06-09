@@ -1,0 +1,47 @@
+version: "3.9"
+
+volumes:
+  postgres_data: {}
+
+services:
+  app: &app
+    build:
+      context: .
+      dockerfile: ./app/Dockerfile
+      args:
+        DEBIAN_FRONTEND: noninteractive
+        BASE_DIR: /usr/src/app/
+    volumes:
+      - ./app/:/usr/src/app/:rw
+    env_file:
+      - ./envs/default/django
+      - ./envs/default/postgres
+      - ./envs/local/django
+    ports:
+      - "127.0.0.1:8000:8000"
+    command: ls
+    healthcheck:
+      test: curl -s -XGET 'http://app:8000/'
+      interval: 10s
+      timeout: 3s
+      retries: 10
+    depends_on:
+      - postgres
+
+
+
+  postgres:
+    build:
+      context: ./postgres/
+      dockerfile: Dockerfile
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - ./envs/default/postgres
+    healthcheck:
+        test:  pg_isready
+        interval: 10s
+        timeout: 3s
+        retries: 10
+
+
