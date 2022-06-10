@@ -1,3 +1,7 @@
+from datetime import datetime, timedelta
+
+import jwt
+from django.conf import settings
 from django.db import models
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractUser
@@ -49,12 +53,27 @@ class User(AbstractUser):
     email = models.EmailField('email address', unique=True)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ['password']
 
     objects = CustomUserManager()
 
     def __str__(self):
         return self.email
+
+    @property
+    def token(self):
+        return self._generate_jwt_token()
+
+    def _generate_jwt_token(self):
+
+        dt = datetime.now() + timedelta(days=1)
+
+        token = jwt.encode({
+            'id': self.pk,
+            'exp': int(dt.strftime('%s'))
+        }, settings.SECRET_KEY, algorithm='HS256')
+
+        return token
 
     class Meta:
         verbose_name = 'user'
