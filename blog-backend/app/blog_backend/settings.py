@@ -88,7 +88,7 @@ DATABASES = {
         'NAME': 'app_db',
         'USER': 'app_user',
         'PASSWORD': 'tes1_passw0rd',
-        'PORT': 5555,
+        'PORT': 5432,
     },
 }
 
