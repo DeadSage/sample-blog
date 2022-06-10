@@ -12,21 +12,21 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 import os
 from envparse import env
 from pathlib import Path
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = env.str('BASE_DIR')
-
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env.str('SECRET_KEY')
+SECRET_KEY = 'django-insecure-j5^gh35^o0(a@18%l1)9+_zze(@_o2g%s+ye1&hy6v8a^d69s!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.bool('DEBUG')
+DEBUG = True
 
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
+ALLOWED_HOSTS = 'localhost,0.0.0.0,127.0.0.1,10.0.0.0,*'
 
 AUTH_USER_MODEL = 'users.User'
 
@@ -39,6 +39,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'users',
+    'posts',
+
+    'django_admin_listfilter_dropdown',
+    'rest_framework',
+    'rest_framework_simplejwt',
 ]
 
 MIDDLEWARE = [
@@ -71,21 +78,25 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'blog_backend.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 DEFAULT_DB = 'default'
 DATABASES = {
     DEFAULT_DB: {
-        'ENGINE': env.str('DB_ENGINE', default="django.db.backends.postgresql"),
-        'HOST': env.str('POSTGRES_HOST'),
-        'NAME': env.str('POSTGRES_DB'),
-        'USER': env.str('POSTGRES_USER'),
-        'PASSWORD': env.str('POSTGRES_PASSWORD'),
-        'PORT': env.int('POSTGRES_PORT'),
+        'ENGINE': "django.db.backends.postgresql",
+        'HOST': 'localhost',
+        'NAME': 'app_db',
+        'USER': 'app_user',
+        'PASSWORD': 'tes1_passw0rd',
+        'PORT': 5555,
     },
 }
 
+SIMPLE_JWT = {
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=15),
+    'ROTATE_REFRESH_TOKENS': True,
+}
+REST_USE_JWT = True
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -105,6 +116,14 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
@@ -116,7 +135,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
