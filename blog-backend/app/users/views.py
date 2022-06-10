@@ -19,19 +19,42 @@ class UserDetailApiView(generics.RetrieveAPIView):
     serializer_class = UserSerializer
 
 
-class CreateUserApiView(generics.CreateAPIView):
+class CreateUserApiView(APIView):
+    """
+    Registers a new user.
+    """
+    permission_classes = [AllowAny]
     serializer_class = CreateUserSerializer
-    permission_classes = (AllowAny,)
-    queryset = User.objects.all()
+
+    def post(self, request):
+        """
+        Creates a new User object.
+        Username, email, and password are required.
+        Returns a JSON web token.
+        """
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        return Response(
+            {
+                'token': serializer.data.get('token', None),
+            },
+            status=status.HTTP_201_CREATED,
+        )
 
 
 class LoginUserAPIView(APIView):
-    permission_classes = (AllowAny,)
+    permission_classes = [AllowAny]
     serializer_class = LoginUserSerializer
 
     def post(self, request):
-        user = request.data.get('user', {})
-        serializer = self.serializer_class(data=user)
+        """
+        Checks is user exists.
+        Email and password are required.
+        Returns a JSON web token.
+        """
+        serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
 
         return Response(serializer.data, status=status.HTTP_200_OK)
