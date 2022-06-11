@@ -3,6 +3,9 @@ from users.models import User
 
 
 class Post(models.Model):
+    """
+    Post model
+    """
     title = models.CharField(max_length=50)
     content = models.TextField(null=True, blank=True)
     published = models.DateTimeField(auto_now_add=True, db_index=True)

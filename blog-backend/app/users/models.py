@@ -28,6 +28,9 @@ class CustomUserManager(BaseUserManager):
         return user
 
     def create_custom_user(self, email, password, **extra_fields):
+        """
+        Create and save a super user with the given email and password.
+        """
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_active', True)
         extra_fields.setdefault('is_superuser', False)
@@ -49,6 +52,9 @@ class CustomUserManager(BaseUserManager):
 
 
 class User(AbstractUser):
+    """
+    Custom user model
+    """
     username = None
     email = models.EmailField('email address', unique=True)
 
@@ -62,10 +68,17 @@ class User(AbstractUser):
 
     @property
     def token(self):
+        """
+        get jwt token
+        :return: token
+        """
         return self._generate_jwt_token()
 
     def _generate_jwt_token(self):
-
+        """
+        generate jwt token for auth user
+        :return: generated token
+        """
         dt = datetime.now() + timedelta(days=1)
 
         token = jwt.encode({

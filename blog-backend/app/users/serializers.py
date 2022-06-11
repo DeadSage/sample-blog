@@ -4,12 +4,21 @@ from django.contrib.auth import authenticate
 
 
 class UserSerializer(serializers.ModelSerializer):
+    """
+    Serializer for users list/detail
+    """
+
     class Meta:
         model = User
         fields = ['id', 'email', 'is_active']
 
 
 class CreateUserSerializer(serializers.ModelSerializer):
+    """
+        Create user.
+        Email and password are required.
+        Returns a JSON web token.
+    """
     password = serializers.CharField(
         max_length=128,
         min_length=8,
@@ -23,6 +32,9 @@ class CreateUserSerializer(serializers.ModelSerializer):
         fields = ['email', 'password', 'token']
 
     def create(self, validated_data):
+        """
+        Create and save a User with the given email and password.
+        """
         return User.objects.create_user(**validated_data)
 
 

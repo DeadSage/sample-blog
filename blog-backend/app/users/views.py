@@ -8,12 +8,18 @@ from .serializers import UserSerializer, CreateUserSerializer, LoginUserSerializ
 
 
 class UserListApiView(generics.ListAPIView):
+    """
+    View for users list
+    """
     queryset = User.objects.all()
     permission_classes = (IsAuthenticated,)
     serializer_class = UserSerializer
 
 
 class UserDetailApiView(generics.RetrieveAPIView):
+    """
+    View for user detail
+    """
     queryset = User.objects.all()
     permission_classes = (IsAuthenticated,)
     serializer_class = UserSerializer
@@ -45,6 +51,9 @@ class CreateUserApiView(APIView):
 
 
 class LoginUserAPIView(APIView):
+    """
+    Login a new user.
+    """
     permission_classes = (AllowAny,)
     serializer_class = LoginUserSerializer
 
