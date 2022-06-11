@@ -23,7 +23,7 @@ class CreateUserApiView(APIView):
     """
     Registers a new user.
     """
-    permission_classes = [AllowAny]
+    permission_classes = (AllowAny,)
     serializer_class = CreateUserSerializer
 
     def post(self, request):
@@ -45,7 +45,7 @@ class CreateUserApiView(APIView):
 
 
 class LoginUserAPIView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = (AllowAny,)
     serializer_class = LoginUserSerializer
 
     def post(self, request):
@@ -56,5 +56,4 @@ class LoginUserAPIView(APIView):
         """
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
-
         return Response(serializer.data, status=status.HTTP_200_OK)

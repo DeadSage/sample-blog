@@ -6,20 +6,17 @@ volumes:
 services:
   app: &app
     build:
-      context: .
-      dockerfile: ./app/Dockerfile
+      context: ./blog-backend
+      dockerfile: Dockerfile
       args:
         DEBIAN_FRONTEND: noninteractive
         BASE_DIR: /usr/src/app/
-    volumes:
-      - ./app/:/usr/src/app/:rw
     env_file:
-      - ./envs/default/django
-      - ./envs/default/postgres
-      - ./envs/local/django
+      - ./blog-backend/.env
     ports:
-      - "127.0.0.1:8000:8000"
-    command: ls
+      - "8000:8000"
+    command: sh entrypoint.sh
+
     healthcheck:
       test: curl -s -XGET 'http://app:8000/'
       interval: 10s
@@ -32,14 +29,15 @@ services:
 
   postgres:
     build:
-      context: ./postgres/
+      context: ./blog-backend/postgres/
       dockerfile: Dockerfile
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    restart: always
     ports:
       - "5432:5432"
     env_file:
-      - ./envs/default/postgres
+      - blog-backend/.env
     healthcheck:
         test:  pg_isready
         interval: 10s
