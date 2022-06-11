@@ -15,18 +15,19 @@ from pathlib import Path
 from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = env.str('BASE_DIR')
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-j5^gh35^o0(a@18%l1)9+_zze(@_o2g%s+ye1&hy6v8a^d69s!'
+SECRET_KEY = env.str('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool('DEBUG')
 
-ALLOWED_HOSTS = 'localhost,0.0.0.0,127.0.0.1,10.0.0.0,*'
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 
 AUTH_USER_MODEL = 'users.User'
 
@@ -83,12 +84,12 @@ WSGI_APPLICATION = 'blog_backend.wsgi.application'
 DEFAULT_DB = 'default'
 DATABASES = {
     DEFAULT_DB: {
-        'ENGINE': "django.db.backends.postgresql",
-        'HOST': 'localhost',
-        'NAME': 'app_db',
-        'USER': 'app_user',
-        'PASSWORD': 'tes1_passw0rd',
-        'PORT': 5432,
+        'ENGINE': env.str('DB_ENGINE', default="django.db.backends.postgresql"),
+        'HOST': env.str('POSTGRES_HOST'),
+        'NAME': env.str('POSTGRES_DB'),
+        'USER': env.str('POSTGRES_USER'),
+        'PASSWORD': env.str('POSTGRES_PASSWORD'),
+        'PORT': env.int('POSTGRES_PORT'),
     },
 }
 
