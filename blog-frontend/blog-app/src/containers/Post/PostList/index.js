@@ -8,9 +8,9 @@ import { DataGrid } from '@mui/x-data-grid';
 import Button from 'react-bootstrap/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 
-import ResourceCreateModal from '../PostCreateModal'
-import { makeSelectResourcesList, makeSelectLoading, makeSelectIsOpenModal } from '../selectors'
-import { getResourcesRequest, setOpenModal } from '../actions'
+import PostCreateModal from '../PostCreateModal'
+import { makeSelectPostsList, makeSelectLoading, makeSelectIsOpenModal } from '../selectors'
+import { getPostsRequest, setOpenModal } from '../actions'
 import './styles.scss'
 
 const COLUMNS = [

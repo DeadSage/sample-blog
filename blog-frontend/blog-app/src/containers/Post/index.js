@@ -1,4 +1,4 @@
-import ResourceList from './PostList';
+import PostList from './PostList';
 
 
 export { PostList };

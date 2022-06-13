@@ -1,13 +1,13 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom";
 
-import { ResourceList } from '../../containers/Resource';
+import { PostList } from '../../containers/Post';
 
 
 function ResourcePage() {
     const navigate = useNavigate()
     return (
-        <ResourceList navigate={navigate}/>
+        <PostList navigate={navigate}/>
     );
 }
 
