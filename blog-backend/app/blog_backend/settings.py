@@ -10,9 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 import os
+
+from corsheaders.defaults import default_headers
 from envparse import env
-from pathlib import Path
-from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = env.str('BASE_DIR')
@@ -46,6 +46,7 @@ INSTALLED_APPS = [
 
     'django_admin_listfilter_dropdown',
     'rest_framework',
+    'corsheaders',
     'rest_framework_simplejwt',
 ]
 
@@ -57,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'blog_backend.urls'
@@ -119,6 +121,20 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     )
 }
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ORIGIN_WHITELIST = [
+    '*',
+    "http://0.0.0.0",
+    "http://0.0.0.0:3000",
+    "http://0.0.0.0:8000",
+    "http://127.0.0.1",
+    "http://127.0.0.1:8000",
+    "http://localhost",
+    "http://localhost:8000",
+    "http://localhost:3000",
+]
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
