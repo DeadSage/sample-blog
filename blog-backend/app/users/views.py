@@ -44,7 +44,7 @@ class CreateUserApiView(APIView):
 
         return Response(
             {
-                'token': serializer.data.get('token', None),
+                'token': serializer.data.get('token'),
             },
             status=status.HTTP_201_CREATED,
         )

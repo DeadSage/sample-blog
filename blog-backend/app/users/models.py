@@ -66,28 +66,6 @@ class User(AbstractUser):
     def __str__(self):
         return self.email
 
-    @property
-    def token(self):
-        """
-        get jwt token
-        :return: token
-        """
-        return self._generate_jwt_token()
-
-    def _generate_jwt_token(self):
-        """
-        generate jwt token for auth user
-        :return: generated token
-        """
-        dt = datetime.now() + timedelta(days=1)
-
-        token = jwt.encode({
-            'id': self.pk,
-            'exp': int(dt.strftime('%s'))
-        }, settings.SECRET_KEY, algorithm='HS256')
-
-        return token
-
     class Meta:
         verbose_name = 'user'
         verbose_name_plural = 'users'

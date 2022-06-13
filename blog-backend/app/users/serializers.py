@@ -31,12 +31,6 @@ class CreateUserSerializer(serializers.ModelSerializer):
         model = User
         fields = ['email', 'password', 'token']
 
-    def create(self, validated_data):
-        """
-        Create and save a User with the given email and password.
-        """
-        return User.objects.create_user(**validated_data)
-
 
 class LoginUserSerializer(serializers.Serializer):
     """
@@ -52,18 +46,8 @@ class LoginUserSerializer(serializers.Serializer):
         """
         Validates user data.
         """
-        email = data.get('email', None)
-        password = data.get('password', None)
-
-        if email is None:
-            raise serializers.ValidationError(
-                'An email address is required to log in.'
-            )
-
-        if password is None:
-            raise serializers.ValidationError(
-                'A password is required to log in.'
-            )
+        email = data.get('email')
+        password = data.get('password')
 
         user = authenticate(username=email, password=password)
 

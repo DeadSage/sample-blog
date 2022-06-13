@@ -7,8 +7,8 @@ class Post(models.Model):
     Post model
     """
     title = models.CharField(max_length=50)
-    content = models.TextField(null=True, blank=True)
-    published = models.DateTimeField(auto_now_add=True, db_index=True)
+    content = models.TextField(null=True, blank=True, default='')
+    published = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
