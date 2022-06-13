@@ -1,3 +1,7 @@
+from datetime import datetime, timedelta
+
+import jwt
+from django.conf import settings
 from django.db import models
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractUser
@@ -24,6 +28,9 @@ class CustomUserManager(BaseUserManager):
         return user
 
     def create_custom_user(self, email, password, **extra_fields):
+        """
+        Create and save a super user with the given email and password.
+        """
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_active', True)
         extra_fields.setdefault('is_superuser', False)
@@ -45,11 +52,14 @@ class CustomUserManager(BaseUserManager):
 
 
 class User(AbstractUser):
+    """
+    Custom user model
+    """
     username = None
     email = models.EmailField('email address', unique=True)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ['password']
 
     objects = CustomUserManager()
 

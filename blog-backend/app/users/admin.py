@@ -4,6 +4,9 @@ from .models import User
 
 
 class UserAdmin(admin.ModelAdmin):
+    """
+    Admin model for users
+    """
     def save_model(self, request, obj, form, change):
         """
         Given a model instance save it to the database.
