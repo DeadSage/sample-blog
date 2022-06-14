@@ -125,7 +125,6 @@ REST_FRAMEWORK = {
 CORS_ORIGIN_ALLOW_ALL = True
 
 CORS_ORIGIN_WHITELIST = [
-    '*',
     "http://0.0.0.0",
     "http://0.0.0.0:3000",
     "http://0.0.0.0:8000",

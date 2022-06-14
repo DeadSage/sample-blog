@@ -1,6 +1,6 @@
 clean:
 	@make -s down
-	@docker rmi sample-blog_postgres_1 sample-blog_app_1
+	@docker rmi sample-blog_postgres_1 sample-blog_app_1 sample-blog-front-1
 	@docker images -q -f dangling=true | xargs docker rmi -f
 
 up:

@@ -21,14 +21,14 @@ class LogIn extends React.Component {
         this.setState({[inputName]: value})
     }
     canLogin() {
-        const {username, password} = this.state
-        return !!username && !!password
+        const {email, password} = this.state
+        return !!email && !!password
     }
     login = () => {
-        const {username, password} = this.state
+        const {email, password} = this.state
         const from = this.props.location.state?.from?.pathname || '/';
         const data = {
-            email: username,
+            email: email,
             password: password
         }
         return new Promise(resolve => {
@@ -40,18 +40,18 @@ class LogIn extends React.Component {
         });
     }
     render() {
-        const {username, password} = this.state
+        const {email, password} = this.state
         const { errors } = this.props
         return (
             <div className="row align-items-center">
                 <div className="col-md-12">
-                    <h3 className="text-center ticket-label">Login</h3>
+                    <h3 className="text-center user-label">Login</h3>
                     <input
                         type="text"
                         className="form-control form-input"
                         placeholder="Username"
-                        value={username}
-                        onChange={e => this.changeInput(e.target.value, 'username')}
+                        value={email}
+                        onChange={e => this.changeInput(e.target.value, 'email')}
                     />
                     <input
                         type="password"
@@ -62,7 +62,7 @@ class LogIn extends React.Component {
                     />
                     {errors && <p className="text-danger"> {errors} </p>}
                     <Button
-                        className="get-ticket-button text-center"
+                        className="get-user-button text-center"
                         onClick={this.login}
                         disabled={!this.canLogin()}
                     >

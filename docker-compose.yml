@@ -6,16 +6,19 @@ volumes:
 services:
   app: &app
     build:
-      context: ./blog-backend
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./blog-backend/Dockerfile
       args:
         DEBIAN_FRONTEND: noninteractive
         BASE_DIR: /usr/src/app/
+    volumes:
+      - ./blog-backend/app/:/usr/src/app/:rw
     env_file:
       - ./blog-backend/.env
     ports:
       - "8000:8000"
-    command: sh entrypoint.sh
+#    command: sh entrypoint.sh
+    command: python3 manage.py runserver 0.0.0.0:8000
 
     healthcheck:
       test: curl -s -XGET 'http://app:8000/'
@@ -43,5 +46,21 @@ services:
         interval: 10s
         timeout: 3s
         retries: 10
+
+  front: &front
+    build:
+      context: ./blog-frontend
+      dockerfile: Dockerfile
+      args:
+        BASE_DIR: /usr/src/app/
+
+    volumes:
+      - ./blog-frontend/blog-app:/usr/src/app/:rw
+    ports:
+      - "127.0.0.1:3000:3000"
+    command: npm start
+    tty: true
+    depends_on:
+      - app
 
 
