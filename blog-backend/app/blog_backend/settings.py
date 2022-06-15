@@ -29,7 +29,7 @@ DEBUG = env.bool('DEBUG')
 
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 
-AUTH_USER_MODEL = 'users.User'
+AUTH_USER_MODEL = 'user.CustomUser'
 
 # Application definition
 
@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'users',
+    'user',
     'posts',
 
     'django_admin_listfilter_dropdown',

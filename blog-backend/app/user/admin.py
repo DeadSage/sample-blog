@@ -1,9 +1,9 @@
 from django.contrib import admin
 
-from .models import User
+from .models import CustomUser
 
 
-class UserAdmin(admin.ModelAdmin):
+class CustomUserAdmin(admin.ModelAdmin):
     """
     Admin model for users
     """
@@ -20,4 +20,4 @@ class UserAdmin(admin.ModelAdmin):
     search_fields = ('email', 'is_active')
 
 
-admin.site.register(User, UserAdmin)
+admin.site.register(CustomUser, CustomUserAdmin)

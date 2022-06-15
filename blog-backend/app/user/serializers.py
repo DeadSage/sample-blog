@@ -1,4 +1,4 @@
-from .models import User
+from .models import CustomUser
 from rest_framework import serializers
 from django.contrib.auth import authenticate
 
@@ -9,7 +9,7 @@ class UserSerializer(serializers.ModelSerializer):
     """
 
     class Meta:
-        model = User
+        model = CustomUser
         fields = ['id', 'email', 'is_active']
 
 
@@ -28,7 +28,7 @@ class CreateUserSerializer(serializers.ModelSerializer):
     token = serializers.CharField(max_length=255, read_only=True)
 
     class Meta:
-        model = User
+        model = CustomUser
         fields = ['email', 'password', 'token']
 
 
