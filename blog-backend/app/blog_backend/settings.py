@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 
     'user',
     'posts',
@@ -46,11 +47,17 @@ INSTALLED_APPS = [
     'django_admin_listfilter_dropdown',
     'rest_framework',
     'corsheaders',
-    'rest_framework_simplejwt',
+    'rest_framework_swagger',
     'rest_framework.authtoken',
     'dj_rest_auth',
-    'rest_framework_swagger',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'dj_rest_auth.registration',
 ]
+
+SITE_ID = 1
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
