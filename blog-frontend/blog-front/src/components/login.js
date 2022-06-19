@@ -40,6 +40,7 @@ export default function SignIn() {
 	const initialFormData = Object.freeze({
 		email: '',
 		password: '',
+		username: '',
 	});
 
 	const [formData, updateFormData] = useState(initialFormData);
@@ -59,6 +60,7 @@ export default function SignIn() {
 			.post(`auth/login/`, {
 				email: formData.email,
 				password: formData.password,
+                username: formData.username,
 			})
 			.then((res) => {
 				localStorage.setItem('access_token', res.data.access);
@@ -82,6 +84,18 @@ export default function SignIn() {
 					Sign in
 				</Typography>
 				<form className={classes.form} noValidate>
+				    <TextField
+						variant="outlined"
+						margin="normal"
+						required
+						fullWidth
+						id="username"
+						label="User name"
+						name="username"
+						autoComplete="username"
+						autoFocus
+						onChange={handleChange}
+					/>
 					<TextField
 						variant="outlined"
 						margin="normal"

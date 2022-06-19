@@ -47,20 +47,20 @@ services:
         timeout: 3s
         retries: 10
 
-#  front: &front
-#    build:
-#      context: ./blog-frontend
-#      dockerfile: Dockerfile
-#      args:
-#        BASE_DIR: /usr/src/app/
-#
-#    volumes:
-#      - ./blog-frontend/blog-front:/usr/src/app/:rw
-#    ports:
-#      - "127.0.0.1:3000:3000"
-#    command: npm start
-#    tty: true
-#    depends_on:
-#      - app
+  front: &front
+    build:
+      context: ./blog-frontend
+      dockerfile: Dockerfile
+      args:
+        BASE_DIR: /usr/src/app/
+
+    volumes:
+      - ./blog-frontend/blog-front:/usr/src/app/:rw
+    ports:
+      - "127.0.0.1:3000:3000"
+    command: npm start
+    tty: true
+    depends_on:
+      - app
 
 
