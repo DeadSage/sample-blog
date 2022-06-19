@@ -39,7 +39,8 @@ export default function SignUp() {
 	const initialFormData = Object.freeze({
 		email: '',
 		username: '',
-		password: '',
+		password1: '',
+        password2: '',
 	});
 
 	const [formData, updateFormData] = useState(initialFormData);
@@ -59,8 +60,9 @@ export default function SignUp() {
 		axiosInstance
 			.post(`auth/registration/`, {
 				email: formData.email,
-				user_name: formData.username,
-				password: formData.password,
+				username: formData.username,
+				password1: formData.password1,
+                password2: formData.password2,
 			})
 			.then((res) => {
 				history.push('/login');
@@ -110,10 +112,23 @@ export default function SignUp() {
 								variant="outlined"
 								required
 								fullWidth
-								name="password"
+								name="password1"
 								label="Password"
 								type="password"
-								id="password"
+								id="password1"
+								autoComplete="current-password"
+								onChange={handleChange}
+							/>
+						</Grid>
+						<Grid item xs={12}>
+							<TextField
+								variant="outlined"
+								required
+								fullWidth
+								name="password2"
+								label="Password confirm"
+								type="password"
+								id="password2"
 								autoComplete="current-password"
 								onChange={handleChange}
 							/>
