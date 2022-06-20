@@ -1,0 +1,59 @@
+version: "3.9"
+
+volumes:
+  postgres_data:
+  static_volume:
+
+services:
+  app: &app
+    build:
+      context: .
+      dockerfile: ./blog-backend/Dockerfile
+      args:
+        DEBIAN_FRONTEND: noninteractive
+        BASE_DIR: /usr/src/app/
+    volumes:
+      - ./blog-backend/app/:/usr/src/app/:rw
+      - static_volume:/usr/src/app/staticfiles
+    env_file:
+      - ./blog-backend/.env
+    expose:
+      - 8000
+#    command: sh entrypoint.sh
+    command: gunicorn blog_backend.wsgi:application --bind 0.0.0.0:8000
+
+    healthcheck:
+      test: curl -s -XGET 'http://app:8000/'
+      interval: 10s
+      timeout: 3s
+      retries: 10
+    depends_on:
+      - postgres
+
+
+
+  postgres:
+    build:
+      context: ./blog-backend/postgres/
+      dockerfile: Dockerfile
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: always
+    ports:
+      - "5432:5432"
+    env_file:
+      - blog-backend/.env
+    healthcheck:
+        test:  pg_isready
+        interval: 10s
+        timeout: 3s
+        retries: 10
+
+  nginx:
+    build: ./nginx
+    ports:
+      - "1337:80"
+    volumes:
+      - static_volume:/usr/src/app/staticfiles
+    depends_on:
+      - app
