@@ -32,6 +32,7 @@ services:
 
 
 
+
   postgres:
     build:
       context: ./blog-backend/postgres/
@@ -55,5 +56,21 @@ services:
       - "1337:80"
     volumes:
       - static_volume:/usr/src/app/staticfiles
+    depends_on:
+      - app
+
+  front: &front
+    build:
+      context: ./blog-frontend
+      dockerfile: Dockerfile
+      args:
+        BASE_DIR: /usr/src/app/
+
+    volumes:
+      - ./blog-frontend/blog-front:/usr/src/app/:rw
+    expose:
+      - 3000
+    command: npm start
+    tty: true
     depends_on:
       - app
