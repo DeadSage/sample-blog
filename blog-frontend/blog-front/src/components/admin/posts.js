@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
 const Posts = (props) => {
 	const { posts } = props;
 	const classes = useStyles();
-	if (!posts || posts.length === 0) return <p>Nenhum post encontrado...</p>;
+	if (!posts || posts.length === 0) return <p>No posts found...</p>;
 	return (
 		<React.Fragment>
 			<Container maxWidth="md" component="main">
@@ -70,7 +70,7 @@ const Posts = (props) => {
 											<TableCell align="left">
 												<Link
 													color="textPrimary"
-													href={'/post/' + post.slug}
+													href={'/v1/posts/' + post.id}
 													className={classes.link}
 												>
 													{post.title}
@@ -103,7 +103,7 @@ const Posts = (props) => {
 											variant="contained"
 											color="primary"
 										>
-											Novo Post
+											New Post
 										</Button>
 									</TableCell>
 								</TableRow>

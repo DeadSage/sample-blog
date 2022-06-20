@@ -44,7 +44,7 @@ export default function Create() {
 					type="submit"
 					onClick={handleSubmit}
 				>
-					Pressione para confirmar exclusão
+					Press to confirm delete
 				</Button>
 			</Box>
 		</Container>

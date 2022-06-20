@@ -101,7 +101,7 @@ export default function Create() {
 			<div className={classes.paper}>
 				<Avatar className={classes.avatar}></Avatar>
 				<Typography component="h1" variant="h5">
-					Criar novo Post
+					Create new post
 				</Typography>
 				<form className={classes.form} noValidate>
 					<Grid container spacing={2}>
