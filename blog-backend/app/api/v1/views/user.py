@@ -1,7 +1,7 @@
 from rest_framework.viewsets import ModelViewSet
 
-from .models import CustomUser
-from .serializers import UserSerializer
+from user.models import CustomUser
+from api.v1.serializers.user import UserSerializer
 
 
 class UserApiView(ModelViewSet):

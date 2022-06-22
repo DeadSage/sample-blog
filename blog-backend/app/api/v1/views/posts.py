@@ -1,5 +1,5 @@
-from .models import Post
-from .serializers import PostSerializer
+from posts.models import Post
+from api.v1.serializers.posts import PostSerializer
 
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
