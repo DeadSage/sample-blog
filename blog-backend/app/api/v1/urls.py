@@ -12,8 +12,8 @@ user_router = DefaultRouter()
 user_router.register(r'user', UserApiView)
 
 urlpatterns = [
-    path('posts/', include('router.urls')),
-    path('users/', include('user_router.urls')),
+    path('posts/', include(router.urls)),
+    path('users/', include(user_router.urls)),
     path('auth/', include('dj_rest_auth.urls')),
     path('auth/registration/', include('dj_rest_auth.registration.urls'))
 ]
