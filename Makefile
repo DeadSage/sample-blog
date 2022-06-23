@@ -1,6 +1,6 @@
 clean:
 	@make -s down
-	@docker rmi sample-blog_postgres_1 sample-blog_app_1
+	@docker rmi sample-blog_postgres_1 sample-blog_app_1 sample-blog-front-1
 	@docker images -q -f dangling=true | xargs docker rmi -f
 
 up:
@@ -60,12 +60,11 @@ rm-volume:
 	@make -s down
 	@docker volume rm sample-blog_postgres_data
 
-# prod:
-# 	@docker compose -f prod.yml down
-# 	@sudo -u user git pull origin master
-# 	@docker compose -f prod.yml build
-# 	@docker compose -f prod.yml up -d
-# 	@echo "Sleeping for 10 seconds"
-# 	@sleep 10
-# 	@docker compose -f prod.yml exec app python manage.py migrate
-# 	@docker compose -f prod.yml exec app python manage.py collectstatic --noinput
+prod:
+	@docker compose -f docker-compose.prod.yml down
+	@docker compose -f docker-compose.prod.yml build
+	@docker compose -f docker-compose.prod.yml up -d
+	@echo "Sleeping for 10 seconds"
+	@sleep 10
+	@docker compose -f docker-compose.prod.yml exec app python manage.py migrate
+	@docker compose -f docker-compose.prod.yml exec app python manage.py collectstatic --noinput

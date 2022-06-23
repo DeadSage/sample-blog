@@ -1,9 +1,8 @@
 # pull official base image
 FROM python:3.8.2-alpine
 
-
 # set work directory
-WORKDIR /usr/src/app
+WORKDIR /usr/src/app/
 
 
 
@@ -13,7 +12,6 @@ ENV PYTHONUNBUFFERED 1
 
 
 
-# install libraries
 RUN apk add --no-cache \
 --update \
 g++ \
@@ -33,23 +31,7 @@ linux-headers \
 python3-dev
 
 
-
 # install dependencies
-COPY ./requirements.txt .
+ADD ./blog-backend/ /usr/src/app/
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
-
-
-
-# copy entrypoint.sh
-COPY ./entrypoint.sh /usr/src/app/entrypoint.sh
-
-
-# copy our django project
-COPY ./app .
-
-
-
-## run entrypoint.sh
-#RUN chmod +x /usr/src/app/entrypoint.sh
-#ENTRYPOINT ["/usr/src/app/entrypoint.sh"]

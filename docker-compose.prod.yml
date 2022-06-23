@@ -1,7 +1,8 @@
 version: "3.9"
 
 volumes:
-  postgres_data: {}
+  postgres_data:
+  static_volume:
 
 services:
   app: &app
@@ -13,12 +14,13 @@ services:
         BASE_DIR: /usr/src/app/
     volumes:
       - ./blog-backend/app/:/usr/src/app/:rw
+      - static_volume:/usr/src/app/staticfiles
     env_file:
       - ./blog-backend/.env
-    ports:
-      - "8000:8000"
+    expose:
+      - 8000
 #    command: sh entrypoint.sh
-    command: python3 manage.py runserver 0.0.0.0:8000
+    command: gunicorn blog_backend.wsgi:application --bind 0.0.0.0:8000
 
     healthcheck:
       test: curl -s -XGET 'http://app:8000/'
@@ -27,6 +29,7 @@ services:
       retries: 10
     depends_on:
       - postgres
+
 
 
 
@@ -47,6 +50,16 @@ services:
         timeout: 3s
         retries: 10
 
+  nginx:
+    build: ./nginx
+    ports:
+      - "1337:80"
+    volumes:
+      - static_volume:/usr/src/app/staticfiles
+    depends_on:
+      - app
+      - front
+
   front: &front
     build:
       context: ./blog-frontend
@@ -56,11 +69,9 @@ services:
 
     volumes:
       - ./blog-frontend/blog-front:/usr/src/app/:rw
-    ports:
-      - "127.0.0.1:3000:3000"
+    expose:
+      - 3000
     command: npm start
     tty: true
     depends_on:
       - app
-
-

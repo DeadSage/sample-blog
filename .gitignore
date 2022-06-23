@@ -10,14 +10,14 @@ media
 *.bak
 
 # If you are using PyCharm #
-# User-specific stuff
+# CustomUser-specific stuff
 .idea/**/workspace.xml
 .idea/**/tasks.xml
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
 
-# AWS User-specific
+# AWS CustomUser-specific
 .idea/**/aws.xml
 
 # Generated files
