@@ -7,6 +7,7 @@ class CustomUserAdmin(admin.ModelAdmin):
     """
     Admin model for users
     """
+
     def save_model(self, request, obj, form, change):
         """
         Given a model instance save it to the database.
@@ -16,7 +17,7 @@ class CustomUserAdmin(admin.ModelAdmin):
             obj.set_password(password)
         obj.save()
 
-    list_display = ('email', 'is_active')
+    list_display = ('id', 'email')
     search_fields = ('email', 'is_active')
 
 

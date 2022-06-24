@@ -1,4 +1,5 @@
 from django.db import models
+import uuid
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractUser
 
@@ -42,6 +43,7 @@ class CustomUser(AbstractUser):
     """
     Custom user model
     """
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     email = models.EmailField('email address', unique=True)
 
     REQUIRED_FIELDS = ['email', 'password']

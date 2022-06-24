@@ -15,7 +15,6 @@ urlpatterns = [
     path('posts/', include(router.urls)),
     path('users/', include(user_router.urls)),
     path('auth/', include('dj_rest_auth.urls')),
-    # path('auth/registration/', include('dj_rest_auth.registration.urls')),
     path('auth/registration/', UserRegisterView.as_view()),
     path('auth/registration/resend-email/', UserResendEmailVerificationView.as_view()),
     path('auth/registration/verify-email/', UserVerifyEmailView.as_view()),
