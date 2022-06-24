@@ -46,12 +46,16 @@ class CustomUser(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     email = models.EmailField('email address', unique=True)
 
-    REQUIRED_FIELDS = ['email', 'password']
+    REQUIRED_FIELDS = ['email', 'first_name', 'last_name', 'password']
 
     objects = CustomUserManager()
 
     def __str__(self):
         return self.email
+
+    @property
+    def get_full_name(self):
+        return f'{self.first_name} {self.last_name}'
 
     class Meta:
         verbose_name = 'user'

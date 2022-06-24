@@ -2,6 +2,10 @@ from django.contrib import admin
 
 from .models import CustomUser
 
+from django_admin_listfilter_dropdown.filters import (
+    DropdownFilter
+)
+
 
 class CustomUserAdmin(admin.ModelAdmin):
     """
@@ -17,8 +21,12 @@ class CustomUserAdmin(admin.ModelAdmin):
             obj.set_password(password)
         obj.save()
 
-    list_display = ('id', 'email')
-    search_fields = ('email', 'is_active')
+    list_display = ('email', 'get_full_name')
+    search_fields = ('email', 'first_name', 'last_name')
+    list_filter = (
+        # for ordinary fields
+        ('first_name', DropdownFilter),
+    )
 
 
 admin.site.register(CustomUser, CustomUserAdmin)

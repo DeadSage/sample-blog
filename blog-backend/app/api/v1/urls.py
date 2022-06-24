@@ -9,7 +9,7 @@ router = DefaultRouter()
 router.register(r'', PostApiView, basename='posts')
 
 user_router = DefaultRouter()
-user_router.register(r'user', UserApiView)
+user_router.register(r'', UserApiView)
 
 urlpatterns = [
     path('posts/', include(router.urls)),
