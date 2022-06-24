@@ -1,13 +1,15 @@
 from django.contrib import admin
 
 from .models import CustomUser
+from .forms import CustomUserFormSearch
 
 from django_admin_listfilter_dropdown.filters import (
     DropdownFilter
 )
+from django_admin_search.admin import AdvancedSearchAdmin
 
 
-class CustomUserAdmin(admin.ModelAdmin):
+class CustomUserAdmin(AdvancedSearchAdmin):
     """
     Admin model for users
     """
@@ -22,11 +24,11 @@ class CustomUserAdmin(admin.ModelAdmin):
         obj.save()
 
     list_display = ('email', 'get_full_name')
-    search_fields = ('email', 'first_name', 'last_name')
     list_filter = (
         # for ordinary fields
         ('first_name', DropdownFilter),
     )
+    search_form = CustomUserFormSearch
 
 
 admin.site.register(CustomUser, CustomUserAdmin)
