@@ -7,7 +7,9 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 class PostApiView(ModelViewSet):
     """
-    A viewset that provides the CRUD actions for post
+    CRUD actions for post
+
+    Provide create/retrieve/update/delete actions
     """
     permission_classes = (IsAuthenticatedOrReadOnly,)
     queryset = Post.objects.all()

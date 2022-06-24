@@ -7,7 +7,9 @@ from dj_rest_auth.registration.views import RegisterView, VerifyEmailView, Resen
 
 class UserApiView(ModelViewSet):
     """
-    A viewset that provides the CRUD actions for user
+    CRUD actions for user
+
+    Provide create/retrieve/update/delete actions
     """
     queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
@@ -15,17 +17,23 @@ class UserApiView(ModelViewSet):
 
 class UserRegisterView(RegisterView):
     """
-    View for user registration
+    User registration
+
+    Register user with given credentials
     """
 
 
 class UserVerifyEmailView(VerifyEmailView):
     """
-    View for user email verify
+    User email verify
+
+    Return the REST Token
     """
 
 
 class UserResendEmailVerificationView(ResendEmailVerificationView):
     """
-    View for resend email verification
+    Resend user email
+
+    Return 200 OK
     """

@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'dj_rest_auth.registration',
+    'drf_yasg',
 ]
 
 SITE_ID = 1
@@ -75,7 +76,7 @@ ROOT_URLCONF = 'blog_backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['blog_backend/'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
