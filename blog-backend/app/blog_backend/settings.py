@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'dj_rest_auth.registration',
     'drf_yasg',
     'django_admin_search',
+    "taggit",
 ]
 
 SITE_ID = 1

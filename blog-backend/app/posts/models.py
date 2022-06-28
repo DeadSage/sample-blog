@@ -1,6 +1,17 @@
 from django.db import models
-import uuid
+
 from user.models import CustomUser
+
+import uuid
+
+from taggit.managers import TaggableManager
+from taggit.models import GenericUUIDTaggedItemBase, TaggedItemBase
+
+
+class UUIDTaggedItem(GenericUUIDTaggedItemBase, TaggedItemBase):
+    class Meta:
+        verbose_name = "tag"
+        verbose_name_plural = "tags"
 
 
 class Post(models.Model):
@@ -10,6 +21,7 @@ class Post(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = models.CharField(max_length=50)
     content = models.TextField(null=True, blank=True, default='')
+    tags = TaggableManager(through=UUIDTaggedItem)
     published = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
