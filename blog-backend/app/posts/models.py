@@ -1,6 +1,7 @@
 from django.db import models
 
 from user.models import CustomUser
+from blog_backend.mixins import TimestampsMixin
 
 import uuid
 
@@ -14,7 +15,7 @@ class UUIDTaggedItem(GenericUUIDTaggedItemBase, TaggedItemBase):
         verbose_name_plural = "tags"
 
 
-class Post(models.Model):
+class Post(TimestampsMixin):
     """
     Post model
     """
@@ -22,7 +23,6 @@ class Post(models.Model):
     title = models.CharField(max_length=50)
     content = models.TextField(null=True, blank=True, default='')
     tags = TaggableManager(through=UUIDTaggedItem)
-    published = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
     def __str__(self):
