@@ -1,15 +1,15 @@
 from django.db import models
 
 from user.models import CustomUser
-from blog_backend.mixins import TimestampsMixin
+from blog_backend.mixins import TimestampsMixin, TaggedItemMixin
 
 import uuid
 
 from taggit.managers import TaggableManager
-from taggit.models import GenericUUIDTaggedItemBase, TaggedItemBase
+from taggit.models import GenericUUIDTaggedItemBase
 
 
-class UUIDTaggedItem(GenericUUIDTaggedItemBase, TaggedItemBase):
+class UUIDTaggedItem(GenericUUIDTaggedItemBase, TaggedItemMixin):
     class Meta:
         verbose_name = "tag"
         verbose_name_plural = "tags"

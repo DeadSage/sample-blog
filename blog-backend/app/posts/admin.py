@@ -9,8 +9,8 @@ class PostAdmin(admin.ModelAdmin):
     """
     Admin model for posts
     """
-    list_display = ('title', 'author', 'tag_list')
-    search_fields = ('title', 'author')
+    list_display = ('title', 'author', 'tag_list', 'created_at')
+    search_fields = ['title', 'author']
     list_filter = (
         ('author', RelatedDropdownFilter),
     )
